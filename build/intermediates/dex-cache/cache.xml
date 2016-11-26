@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/glide-3.7.0_bfe50d28c04204ce7fc2c4c2fac95badefcfb584.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-24.2.1_469551630a78ba5f5498bee39d335e654629a8cb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-jackson/2.1.0/ef33476a62d9c62dfca6b6c9e086f2e3343a96f4/converter-jackson-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ef33476a62d9c62dfca6b6c9e086f2e3343a96f4">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/converter-jackson-2.1.0_e5e9936962112167bc7a2f5816dfcd1639781dc4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_a79c90f2e36b7f9d45b3bbe9c1f855637faa0d47.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-24.2.1_8fba28831014727ff8cbcbc8bfe80bc9dd1d4416.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_875799be2def9a70ab23336b553385ef438bd158.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/retrofit-2.1.0_379c63081dc75a31435ce224954cfcadc7411230.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-24.2.1_01b38cdd1fff0673b4908ffff507d21681800702.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/support-annotations-24.2.1_89db2cb3acec077e43b488a519d3cab6d4121981.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-24.2.1_143310fad0ac977e8ed6326769b612993e2da10b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/design/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-design-24.2.1_96f11c03a508ada7bdaa6e40c9607fcacb78f29b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_9702829da40c37ae9d724732c1bc9a7e545f8855.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.7.2/8b8310381b690e317f5f0574e9b2dd7034778b4c/jackson-core-2.7.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="8b8310381b690e317f5f0574e9b2dd7034778b4c">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/jackson-core-2.7.2_a4cd076e8fd4532bf8556b48ebf3fe3a9b9514f7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-24.2.1_97dd6f0b2551323a5a84e627bc9b837b7f634f58.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.7.0/19f42c154ffc689f40a77613bc32caeb17d744e3/jackson-annotations-2.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="19f42c154ffc689f40a77613bc32caeb17d744e3">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/jackson-annotations-2.7.0_7122a27ce13fca6e9bc9245246bfdaf2d62186be.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/okio-1.8.0_36eab01fee3957d6c82f50f8e8957cf85be1d890.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_b52244256681b91db568b98921de98124f9e297e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-24.2.1_ddcb39a3dc5fd7dcb3b95d64fd7b50e7f54206e3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-24.2.1_3987fa2df6612324ffe92a402ee54bcfd0294883.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.2.1_52c8e4ff27d049b9f6f8d50c91f5ac480e87d428.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.1/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/internal_impl-24.2.1_7a40c5244e474e81cd328ee0a3c9952edfa0e87c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-24.2.1_d141253fc9095fa28cf9e2952b23bff3bee5f191.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/okhttp-3.3.0_f06b73a86f1549171704198f06b1cbab9b60b5e4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-24.2.1_760d5c931e5c5fb640db6fc14079333939537d1c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="ee57e0ff9fa5d5438e1dee7704f95a5a6acb41b7">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_f144ce0125ac46d98fb1d6b5ede43dd7e186fa4a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="cab5648f328a5a6ce2a27dfb66c67b03b4c3be67">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/instant-run_94b9e4dbad377fbba4853d04c2bf6db6ac2deeaf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/ka/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.7.2/84ffa765dd258dbab8695963c41308b054f3a1cb/jackson-databind-2.7.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.3"
+        sha1="84ffa765dd258dbab8695963c41308b054f3a1cb">
+        <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/jackson-databind-2.7.2_47c9439a2a5028cabed989f25172d329c9007427.jar" />
+    </item>
+
+</items>
