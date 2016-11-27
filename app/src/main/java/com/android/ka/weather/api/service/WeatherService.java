@@ -13,6 +13,11 @@ import retrofit2.http.Query;
 public interface WeatherService {
 
     @GET("forecast")
-    Call<DataResponse> getDataResponse(@Query("appid") String key,
+    Call<DataResponse> getDataByCityId(@Query("appid") String key,
                                        @Query("id") String cityId);
+
+    @GET("forecast")
+    Call<DataResponse> getDataByLocation(@Query("appid") String key,
+                                         @Query("lat") double lat,
+                                         @Query("lon") double lon);
 }

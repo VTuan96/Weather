@@ -9,4 +9,8 @@ public class TempUtils {
         int tmp = (int) (temp - 273.15);
         return tmp + "\u2103";
     }
+
+    public static String convert(double temp) {
+        return (int) (temp - 273.15) - 1 + "-";
+    }
 }

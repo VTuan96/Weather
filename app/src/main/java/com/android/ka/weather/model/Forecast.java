@@ -12,7 +12,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Forecast {
     @JsonProperty("dt")
-    public double timeForecast;
+    public long timeForecast;
     public MainWeather main;
     public List<Weather> weather;
     public Wind wind;

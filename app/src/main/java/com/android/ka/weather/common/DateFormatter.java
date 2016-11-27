@@ -3,6 +3,7 @@ package com.android.ka.weather.common;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by roma on 04.11.15.
@@ -19,16 +20,13 @@ public class DateFormatter {
         return new SimpleDateFormat(DATE_PATTERN, Locale.getDefault()).format(date);
     }
 
-    public static String convertToTime(String s) {
-        s = s.substring(2, s.length() - 1);
-        int length = s.length();
-        String time = "";
-        for (int i = 0; i < length; i++) {
-            if (s.charAt(i) == 'M') {
-                time = s.substring(0, i) + ":" + s.substring(i + 1, length);
+    public static String convertLongToStringFull(long time) {
+        Date date = new Date(TimeUnit.SECONDS.toMillis(time));
+        return new SimpleDateFormat("EEEE, LLLL dd", Locale.ENGLISH).format(date);
+    }
 
-            }
-        }
-        return time;
+    public static String convertLongToDayName(long time) {
+        Date date = new Date(TimeUnit.SECONDS.toMillis(time));
+        return new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date);
     }
 }

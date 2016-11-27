@@ -11,5 +11,6 @@ public class Weather {
     @JsonProperty("main")
     public String statusWeather;
     public String description;
-
+    @JsonProperty("id")
+    public int weatherId;
 }
