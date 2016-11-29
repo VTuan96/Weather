@@ -11,6 +11,6 @@ public class TempUtils {
     }
 
     public static String convert(double temp) {
-        return (int) (temp - 273.15) - 1 + "-";
+        return (int) (temp - 273.15) + "-";
     }
 }

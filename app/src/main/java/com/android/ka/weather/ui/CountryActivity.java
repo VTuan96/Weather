@@ -1,9 +1,14 @@
 package com.android.ka.weather.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.ka.weather.R;
@@ -23,7 +28,6 @@ public class CountryActivity extends AppCompatActivity {
     private ListView lvCountry;
     private List<Country> countryList;
     private ListCountryAdapter adapter;
-    private String s = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +37,39 @@ public class CountryActivity extends AppCompatActivity {
         countryList = loadJSONFromAsset();
         adapter = new ListCountryAdapter(this, countryList);
         lvCountry.setAdapter(adapter);
+
+        lvCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Country c = countryList.get(position);
+                Intent intent = getIntent();
+                intent.putExtra("id", c.get_id());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.searchView);
+        SearchView searchView = (SearchView) item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.filter(query.trim());
+                lvCountry.invalidate();
+                return true;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -63,9 +95,9 @@ public class CountryActivity extends AppCompatActivity {
             Log.e("fuck", i + "");
             country.set_id(JsonUtil.getString(object, "_id", ""));
             String name = JsonUtil.getString(object, "country", "");
-            if (name.equals("VN")) {
-                name = "Viet Nam";
-            }
+//            if (name.equals("VN")) {
+//                name = "Viet Nam";
+//            }
             country.setCountry(name);
             country.setName(JsonUtil.getString(object, "name", ""));
             countryList.add(country);

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.ka.weather.AppConfig;
 import com.android.ka.weather.R;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog dialog;
     private SwipeRefreshLayout pull;
     private Button btnSearchLocation;
+    private String _id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,12 +113,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            _id = data.getStringExtra("id");
+            Toast.makeText(this, data.getStringExtra("id"), Toast.LENGTH_LONG).show();
+            getData();
+        }
     }
 
     private void getData() {
         list.clear();
         WeatherService service = ServiceGenerator.create(WeatherService.class);
-        Call<DataResponse> call = service.getDataByCityId(AppConfig.WEATHER_API_KEY, "1581130");
+        Call<DataResponse> call;
+        if (_id != null) {
+            call = service.getDataByCityId(AppConfig.WEATHER_API_KEY, _id);
+        } else {
+            call = service.getDataByCityId(AppConfig.WEATHER_API_KEY, "1581130");
+        }
         call.enqueue(new Callback<DataResponse>() {
             @Override
             public void onResponse(Call<DataResponse> call, Response<DataResponse> response) {
@@ -129,8 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 List<Forecast> forecasts = dataResponse.list;
                 long currentDate = forecasts.get(0).timeForecast;
 
-                weather.setTimeForecast(DateFormatter.convertLongToStringFull(forecasts.get(0)
-                        .timeForecast));
+                weather.setTimeForecast(DateFormatter.formatString(forecasts.get(0).realTime));
                 weather.setHumidity(forecasts.get(0).main.humidity + "%");
                 weather.setCity(dataResponse.city.name + ", " + dataResponse.city.country);
                 weather.setWeatherId(forecasts.get(0).weather.get(0).weatherId);
@@ -149,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         day1.setTempAva(TempUtils.convert(forecast.main.tempMin) +
                                 TempUtils.convertKtoC(forecast.main.tempMax));
                         day1.setWeatherId(forecast.weather.get(0).weatherId);
-                        day1.setTimeForecast(DateFormatter.convertLongToDayName(forecast.timeForecast));
+                        day1.setTimeForecast(DateFormatter.formatString(forecast.realTime));
                         list.add(day1);
                         currentDate += 86400;
                     }

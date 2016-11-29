@@ -16,4 +16,6 @@ public class Forecast {
     public MainWeather main;
     public List<Weather> weather;
     public Wind wind;
+    @JsonProperty("dt_txt")
+    public String realTime;
 }

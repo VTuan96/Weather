@@ -10,7 +10,9 @@ import android.widget.TextView;
 import com.android.ka.weather.R;
 import com.android.ka.weather.model.Country;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by ka on 29/11/2016.
@@ -19,10 +21,13 @@ import java.util.List;
 public class ListCountryAdapter extends BaseAdapter {
     private Context context;
     private List<Country> countryList;
+    private List<Country> result;
 
     public ListCountryAdapter(Context context, List<Country> countryList) {
         this.context = context;
         this.countryList = countryList;
+        result = new ArrayList<>();
+        result.addAll(countryList);
     }
 
     @Override
@@ -58,10 +63,26 @@ public class ListCountryAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void filter(String query) {
+        query = query.toLowerCase(Locale.getDefault());
+
+        countryList.clear();
+        if (query.length() == 0) {
+            countryList.addAll(result);
+        } else {
+            for (Country c : result) {
+                if (query.length() != 0 && c.toString().toLowerCase(Locale.getDefault()).contains(query)) {
+                    countryList.add(c);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     private class Holder {
         TextView tvName;
 
-        public Holder(View view) {
+        Holder(View view) {
             tvName = (TextView) view.findViewById(R.id.tvCountry);
         }
     }
