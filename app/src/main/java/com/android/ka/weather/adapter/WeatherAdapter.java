@@ -116,5 +116,4 @@ public class WeatherAdapter extends BaseAdapter {
             imageWeather = (ImageView) item.findViewById(R.id.imgStatus);
         }
     }
-
 }

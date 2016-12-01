@@ -88,6 +88,7 @@ public class CountryActivity extends AppCompatActivity {
         }
 
         JSONArray root = JsonUtil.createJSONArray(json);
+        assert root != null;
         int size = root.length();
         for (int i = 0; i < size - 1; i++) {
             Country country = new Country();
@@ -95,9 +96,6 @@ public class CountryActivity extends AppCompatActivity {
             Log.e("fuck", i + "");
             country.set_id(JsonUtil.getString(object, "_id", ""));
             String name = JsonUtil.getString(object, "country", "");
-//            if (name.equals("VN")) {
-//                name = "Viet Nam";
-//            }
             country.setCountry(name);
             country.setName(JsonUtil.getString(object, "name", ""));
             countryList.add(country);

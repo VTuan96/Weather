@@ -16,6 +16,7 @@ public class WeatherPrefs {
     private static final String DAY3 = "DAY3";
     private static final String DAY4 = "DAY4";
     private static final String DAY5 = "DAY5";
+    private static final String ID = "ID";
 
     public static WeatherDisplay getMainWeather() {
         WeatherDisplay weatherDisplay = new WeatherDisplay();
@@ -44,6 +45,19 @@ public class WeatherPrefs {
         editor.putString("status", display.getStatus());
         editor.putString("wind", display.getWind());
         editor.putString("humidity", display.getHumidity());
+        editor.apply();
+    }
+
+    public static String getId() {
+        SharedPreferences prefs = WeatherApplication.getInstance()
+                .getSharedPreferences(ID, Context.MODE_PRIVATE);
+        return prefs.getString("_id", "yeah");
+    }
+
+    public static void setId(String id) {
+        SharedPreferences.Editor editor = WeatherApplication.getInstance()
+                .getSharedPreferences(ID, Context.MODE_PRIVATE).edit();
+        editor.putString("_id", id);
         editor.apply();
     }
 

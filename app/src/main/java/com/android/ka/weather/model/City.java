@@ -1,6 +1,7 @@
 package com.android.ka.weather.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by ka on 26/11/2016.
@@ -8,7 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class City {
-    public int id;
+    @JsonProperty("id")
+    public String _id;
     public String name;
     public String country;
 }

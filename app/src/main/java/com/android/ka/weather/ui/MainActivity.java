@@ -1,7 +1,10 @@
 package com.android.ka.weather.ui;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -26,6 +29,7 @@ import com.android.ka.weather.model.Forecast;
 import com.android.ka.weather.model.WeatherDisplay;
 import com.android.ka.weather.prefs.UseAppPrefs;
 import com.android.ka.weather.prefs.WeatherPrefs;
+import com.android.ka.weather.service.LocationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,20 +41,32 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int REQUEST_CODE = 111;
-    private ListView lv;
+    public static final String LOCATION = "com.android.ka.weather.ui.LOCATION";
     private WeatherAdapter adapter;
     private List<WeatherDisplay> list;
     private ProgressDialog dialog;
     private SwipeRefreshLayout pull;
-    private Button btnSearchLocation;
     private String _id;
+    private IntentFilter filter = new IntentFilter("com.android.ka.weather.ui.LOCATION");
+    private String lon;
+    private String lat;
+    private BroadcastReceiver locationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction().equals(LOCATION)) {
+                lon = intent.getStringExtra("lon");
+                lat = intent.getStringExtra("lat");
+                getData();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnSearchLocation = (Button) findViewById(R.id.btnLocation);
-        lv = (ListView) findViewById(R.id.lv);
+        Button btnSearchLocation = (Button) findViewById(R.id.btnLocation);
+        ListView lv = (ListView) findViewById(R.id.lv);
         pull = (SwipeRefreshLayout) findViewById(R.id.pullToUpdate);
 
         list = new ArrayList<>();
@@ -60,18 +76,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (UseAppPrefs.checkFirstTime()) {
             dialog.setMessage("Loading weather");
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            dialog.setTitle("Weather");
             dialog.setProgress(0);
             dialog.setCanceledOnTouchOutside(false);
             dialog.setIndeterminate(false);
             dialog.show();
-            getData();
+            Intent intent = new Intent(this, LocationService.class);
+            startService(intent);
         } else {
             list.add(WeatherPrefs.getMainWeather());
             list.add(WeatherPrefs.getDay2());
             list.add(WeatherPrefs.getDay3());
             list.add(WeatherPrefs.getDay4());
             list.add(WeatherPrefs.getDay5());
+            _id = WeatherPrefs.getId();
             adapter.notifyDataSetChanged();
         }
 
@@ -92,14 +109,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(locationReceiver, filter);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
-//        WeatherPrefs.setMainWeather(list.get(0));
-//        WeatherPrefs.setDay2(list.get(1));
-//        WeatherPrefs.setDay3(list.get(2));
-//        WeatherPrefs.setDay4(list.get(3));
-//        WeatherPrefs.setDay5(list.get(4));
-//        UseAppPrefs.isFirstTime(false);
+        WeatherPrefs.setMainWeather(list.get(0));
+        WeatherPrefs.setDay2(list.get(1));
+        WeatherPrefs.setDay3(list.get(2));
+        WeatherPrefs.setDay4(list.get(3));
+        WeatherPrefs.setDay5(list.get(4));
+        WeatherPrefs.setId(_id);
+        unregisterReceiver(locationReceiver);
     }
 
     @Override
@@ -124,10 +148,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.clear();
         WeatherService service = ServiceGenerator.create(WeatherService.class);
         Call<DataResponse> call;
-        if (_id != null) {
-            call = service.getDataByCityId(AppConfig.WEATHER_API_KEY, _id);
+
+        if (UseAppPrefs.checkFirstTime()) {
+            call = service.getDataByLocation(AppConfig.WEATHER_API_KEY, lat, lon);
+            UseAppPrefs.isFirstTime(false);
         } else {
-            call = service.getDataByCityId(AppConfig.WEATHER_API_KEY, "1581130");
+            call = service.getDataByCityId(AppConfig.WEATHER_API_KEY, _id);
         }
         call.enqueue(new Callback<DataResponse>() {
             @Override
@@ -140,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 WeatherDisplay weather = new WeatherDisplay();
                 List<Forecast> forecasts = dataResponse.list;
                 long currentDate = forecasts.get(0).timeForecast;
-
+                _id = dataResponse.city._id;
                 weather.setTimeForecast(DateFormatter.formatString(forecasts.get(0).realTime));
                 weather.setHumidity(forecasts.get(0).main.humidity + "%");
                 weather.setCity(dataResponse.city.name + ", " + dataResponse.city.country);

@@ -2,6 +2,8 @@
 <manifest package="com.android.ka.weather"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <uses-permission android:name="android.permission.INTERNET"/>
 
   <application
@@ -20,6 +22,20 @@
     </activity>
     <activity android:name=".ui.CountryActivity">
     </activity>
+
+    <service
+        android:name=".service.LocationService"
+        android:exported="false">
+    </service>
+
+    <receiver android:name=".ui.WidgetProvider">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+      </intent-filter>
+      <meta-data
+          android:name="android.appwidget.AppWidgetProvider"
+          android:resource="@xml/widget_info"/>
+    </receiver>
   </application>
 
 </manifest>

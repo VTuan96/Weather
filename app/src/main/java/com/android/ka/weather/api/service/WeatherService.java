@@ -18,6 +18,6 @@ public interface WeatherService {
 
     @GET("forecast")
     Call<DataResponse> getDataByLocation(@Query("appid") String key,
-                                         @Query("lat") double lat,
-                                         @Query("lon") double lon);
+                                         @Query("lat") String lat,
+                                         @Query("lon") String lon);
 }
