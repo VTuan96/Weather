@@ -42,7 +42,7 @@
 
     </activity>
 
-    <activity android:name=".Lunar">
+    <activity android:name=".ui.Lunar">
     </activity>
   </application>
 

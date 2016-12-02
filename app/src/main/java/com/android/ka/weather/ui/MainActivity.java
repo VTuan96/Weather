@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("weatherId", list.get(0).getWeatherId());
             startActivityForResult(intent, REQUEST_CODE);
         } else if (v.getId() == R.id.ivCalendar) {
-//            startActivity(new Intent(MainActivity,LunarActivity.class));
+            startActivity(new Intent(MainActivity.this, Lunar.class));
         } else if (v.getId() == R.id.ivSettings) {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             intent.putExtra("weatherId", list.get(0).getWeatherId());

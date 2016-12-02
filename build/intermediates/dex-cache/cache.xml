@@ -502,7 +502,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.3"
-        sha1="08a1cd60606a2809e1a0d0e87692dea0c09b7b5e">
+        sha1="6176a9f70b9040f588f22f64e2e84f34fca47013">
         <dex dex="/home/ka/AndroidStudioProjects/Weather/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_f144ce0125ac46d98fb1d6b5ede43dd7e186fa4a.jar" />
     </item>
     <item
