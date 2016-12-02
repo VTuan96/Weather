@@ -39,6 +39,10 @@
     </receiver>
 
     <activity android:name=".ui.SettingsActivity">
+
+    </activity>
+
+    <activity android:name=".Lunar">
     </activity>
   </application>
 
