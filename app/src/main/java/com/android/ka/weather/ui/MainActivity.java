@@ -5,18 +5,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.ka.weather.AppConfig;
 import com.android.ka.weather.R;
-import com.android.ka.weather.adapter.WeatherAdapter;
 import com.android.ka.weather.api.ServiceGenerator;
 import com.android.ka.weather.api.service.WeatherService;
 import com.android.ka.weather.common.DateFormatter;
@@ -30,6 +32,7 @@ import com.android.ka.weather.model.WeatherDisplay;
 import com.android.ka.weather.prefs.UseAppPrefs;
 import com.android.ka.weather.prefs.WeatherPrefs;
 import com.android.ka.weather.service.LocationService;
+import com.android.ka.weather.ui.adapter.WeatherAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final int REQUEST_CODE = 111;
     public static final String LOCATION = "com.android.ka.weather.ui.LOCATION";
+
+    private RelativeLayout rela;
     private WeatherAdapter adapter;
     private List<WeatherDisplay> list;
     private ProgressDialog dialog;
@@ -64,15 +69,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setTheme(R.style.Ka);
         setContentView(R.layout.activity_main);
-        Button btnSearchLocation = (Button) findViewById(R.id.btnLocation);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        setSupportActionBar(toolbar);
+        ImageView imgLocation = (ImageView) findViewById(R.id.ivLocation);
+        ImageView imgCalendar = (ImageView) findViewById(R.id.ivCalendar);
+        ImageView imgSettings = (ImageView) findViewById(R.id.ivSettings);
         ListView lv = (ListView) findViewById(R.id.lv);
+        rela = (RelativeLayout) findViewById(R.id.relativeLayout);
         pull = (SwipeRefreshLayout) findViewById(R.id.pullToUpdate);
 
         list = new ArrayList<>();
         adapter = new WeatherAdapter(this, list);
         lv.setAdapter(adapter);
-        dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(this, R.style.Theme_MyDialog);
         if (UseAppPrefs.checkFirstTime()) {
             dialog.setMessage("Loading weather");
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -89,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             list.add(WeatherPrefs.getDay4());
             list.add(WeatherPrefs.getDay5());
             _id = WeatherPrefs.getId();
+            rela.setBackgroundResource(WeatherUtils.getBackgroundResource(
+                    WeatherPrefs.getMainWeather().getWeatherId()));
             adapter.notifyDataSetChanged();
         }
 
@@ -105,7 +119,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }, 2000);
             }
         });
-        btnSearchLocation.setOnClickListener(this);
+        imgLocation.setOnClickListener(this);
+        imgCalendar.setOnClickListener(this);
+        imgSettings.setOnClickListener(this);
     }
 
     @Override
@@ -128,9 +144,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnLocation) {
+        if (v.getId() == R.id.ivLocation) {
             Intent intent = new Intent(MainActivity.this, CountryActivity.class);
+            intent.putExtra("weatherId", list.get(0).getWeatherId());
             startActivityForResult(intent, REQUEST_CODE);
+        } else if (v.getId() == R.id.ivCalendar) {
+//            startActivity(new Intent(MainActivity,LunarActivity.class));
+        } else if (v.getId() == R.id.ivSettings) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            intent.putExtra("weatherId", list.get(0).getWeatherId());
+            startActivity(intent);
+
         }
     }
 
@@ -191,6 +215,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         currentDate += 86400;
                     }
                 }
+                rela.setBackgroundResource(WeatherUtils.getBackgroundResource(weather.getWeatherId()));
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }

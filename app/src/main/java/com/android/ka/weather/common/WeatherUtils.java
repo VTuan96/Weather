@@ -33,6 +33,33 @@ public class WeatherUtils {
         return -1;
     }
 
+    public static int getBackgroundResource(int weatherId) {
+        if (weatherId >= 200 && weatherId <= 232) {
+            return R.drawable.storm;
+        } else if (weatherId >= 300 && weatherId <= 321) {
+            return R.drawable.lightrain;
+        } else if (weatherId >= 500 && weatherId <= 504) {
+            return R.drawable.rain;
+        } else if (weatherId == 511) {
+            return R.drawable.rain;
+        } else if (weatherId >= 520 && weatherId <= 531) {
+            return R.drawable.rain;
+        } else if (weatherId >= 600 && weatherId <= 622) {
+            return R.drawable.rain;
+        } else if (weatherId >= 701 && weatherId < 761) {
+            return R.drawable.fog;
+        } else if (weatherId == 761 || weatherId == 781) {
+            return R.drawable.storm;
+        } else if (weatherId == 800) {
+            return R.drawable.clear;
+        } else if (weatherId == 801) {
+            return R.drawable.partly_cloudy;
+        } else if (weatherId >= 802 && weatherId <= 804) {
+            return R.drawable.partly_cloudy;
+        }
+        return R.drawable.clear;
+    }
+
     public static String getFormattedWind(float degrees) {
         // From wind direction in degrees, determine compass direction as a string (e.g NW)
         String direction = "Unknown";

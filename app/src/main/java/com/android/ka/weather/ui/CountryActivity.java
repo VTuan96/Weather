@@ -1,20 +1,24 @@
 package com.android.ka.weather.ui;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.android.ka.weather.R;
-import com.android.ka.weather.adapter.ListCountryAdapter;
 import com.android.ka.weather.common.JsonUtil;
+import com.android.ka.weather.common.WeatherUtils;
 import com.android.ka.weather.model.Country;
+import com.android.ka.weather.ui.adapter.ListCountryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,12 +32,22 @@ public class CountryActivity extends AppCompatActivity {
     private ListView lvCountry;
     private List<Country> countryList;
     private ListCountryAdapter adapter;
+    private RelativeLayout rela;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_country);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
+        setSupportActionBar(toolbar);
         lvCountry = (ListView) findViewById(R.id.lvCountry);
+        rela = (RelativeLayout) findViewById(R.id.rela);
+
+        if (getIntent() != null) {
+            int weatherId = getIntent().getIntExtra("weatherId", 0);
+            rela.setBackgroundResource(WeatherUtils.getBackgroundResource(weatherId));
+        }
         countryList = loadJSONFromAsset();
         adapter = new ListCountryAdapter(this, countryList);
         lvCountry.setAdapter(adapter);
