@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefs_screen"
+    android:summary="Settings">
   <Preference
-      android:title="Thoi tiet tai vi tri"/>
+      android:key="prefs_location"
+      android:title="Current Location"/>
   <CheckBoxPreference
       android:key="prefs_show"
       android:summary="Hien thi hinh nen theo trang thai thoi tiet"
       android:title="Hien thi hinh nen"/>
+  <ListPreference
+      android:entries="@array/time"
+      android:entryValues="@array/value_time"
+      android:key="prefs_time_update"
+      android:summary="30 minutes"
+      android:title="Time to update"/>
 </PreferenceScreen>

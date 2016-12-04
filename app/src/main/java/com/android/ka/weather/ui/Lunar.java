@@ -22,7 +22,7 @@ public class Lunar extends AppCompatActivity {
 
     private static final double LOCAL_TIMEZONE = 7.0;
     private static final String DATABASE_NAME = "Folk.sqlite";
-    private static final String DATABSE_TABLE = "FolkTable";
+    private static final String DATABaSE_TABLE = "FolkTable";
     private final String DIRECTORY_PATH = "/data/data/com.android.ka.weather/databases/";
     private final String FULL_PATH = DIRECTORY_PATH + DATABASE_NAME;
     Calendar c = Calendar.getInstance();
@@ -132,8 +132,7 @@ public class Lunar extends AppCompatActivity {
             deltat = -0.000278 + 0.000265 * T + 0.000262 * T2;
         }
         ;
-        double JdNew = Jd1 + C1 - deltat;
-        return JdNew;
+        return Jd1 + C1 - deltat;
     }
 
     public static double SunLongitude(double jdn) {
@@ -257,8 +256,9 @@ public class Lunar extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        } else
+        } else {
             loadDataFromDatabase();
+        }
 
         random = new Random();
         quoteBefore = random.nextInt(mListFolk.size());
@@ -266,7 +266,7 @@ public class Lunar extends AppCompatActivity {
 
     private void loadDataFromDatabase() {
         database = openOrCreateDatabase(DATABASE_NAME, MODE_PRIVATE, null);
-        Cursor cursor = database.query(DATABSE_TABLE, null, null, null, null, null, null);
+        Cursor cursor = database.query(DATABaSE_TABLE, null, null, null, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 mListFolk.add(cursor.getString(1));

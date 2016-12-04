@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import com.android.ka.weather.ui.MainActivity;
 
@@ -25,13 +26,6 @@ public class LocationService extends Service implements LocationListener {
                 != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         manager.removeUpdates(this);
@@ -64,7 +58,9 @@ public class LocationService extends Service implements LocationListener {
             i.putExtra("lat", location.getLatitude() + "");
             i.putExtra("lon", location.getLongitude() + "");
             i.setAction(MainActivity.LOCATION);
+            Log.i("Location Service: ", location.toString());
             sendBroadcast(i);
+            stopSelf();
         }
     }
 

@@ -1,3 +1,17 @@
 <resources>
   <string name="app_name">Weather</string>
+  <string-array name="time">
+    <item>10 minutes </item>
+    <item>20 minutes </item>
+    <item>30 minutes </item>
+    <item>1 hour </item>
+    <item>2 hour </item>
+  </string-array>
+  <integer-array name="value_time">
+    <item>10</item>
+    <item>20</item>
+    <item>30</item>
+    <item>60</item>
+    <item>120</item>
+  </integer-array>
 </resources>

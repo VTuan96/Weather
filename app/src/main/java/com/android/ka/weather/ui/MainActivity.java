@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.android.ka.weather.AppConfig;
 import com.android.ka.weather.R;
@@ -29,10 +28,13 @@ import com.android.ka.weather.common.WeatherUtils;
 import com.android.ka.weather.model.DataResponse;
 import com.android.ka.weather.model.Forecast;
 import com.android.ka.weather.model.WeatherDisplay;
+import com.android.ka.weather.prefs.ShowWallpaperPrefs;
 import com.android.ka.weather.prefs.UseAppPrefs;
+import com.android.ka.weather.prefs.UsingCurrentLocationPrefs;
 import com.android.ka.weather.prefs.WeatherPrefs;
 import com.android.ka.weather.service.LocationService;
 import com.android.ka.weather.ui.adapter.WeatherAdapter;
+import com.android.ka.weather.ui.fragment.SettingsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setTheme(R.style.Ka);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.parseColor("#ffffff"));
@@ -85,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new WeatherAdapter(this, list);
         lv.setAdapter(adapter);
         dialog = new ProgressDialog(this, R.style.Theme_MyDialog);
-        if (UseAppPrefs.checkFirstTime()) {
+        if (UseAppPrefs.checkFirstTime() || (getIntent() != null && getIntent().getAction().
+                equals(SettingsFragment.CURRENT))) {
             dialog.setMessage("Loading weather");
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             dialog.setProgress(0);
@@ -101,8 +103,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             list.add(WeatherPrefs.getDay4());
             list.add(WeatherPrefs.getDay5());
             _id = WeatherPrefs.getId();
-            rela.setBackgroundResource(WeatherUtils.getBackgroundResource(
-                    WeatherPrefs.getMainWeather().getWeatherId()));
+            if (ShowWallpaperPrefs.getShowWallpaper()) {
+                rela.setBackgroundResource(WeatherUtils.getBackgroundResource(
+                        WeatherPrefs.getMainWeather().getWeatherId()));
+            }
             adapter.notifyDataSetChanged();
         }
 
@@ -163,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             _id = data.getStringExtra("id");
-            Toast.makeText(this, data.getStringExtra("id"), Toast.LENGTH_LONG).show();
             getData();
         }
     }
@@ -173,9 +176,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WeatherService service = ServiceGenerator.create(WeatherService.class);
         Call<DataResponse> call;
 
-        if (UseAppPrefs.checkFirstTime()) {
+        if (UseAppPrefs.checkFirstTime() || UsingCurrentLocationPrefs.getUsingCurrentLocation()) {
             call = service.getDataByLocation(AppConfig.WEATHER_API_KEY, lat, lon);
             UseAppPrefs.isFirstTime(false);
+            UsingCurrentLocationPrefs.setUsingCurrentLocation(false);
         } else {
             call = service.getDataByCityId(AppConfig.WEATHER_API_KEY, _id);
         }
@@ -215,7 +219,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         currentDate += 86400;
                     }
                 }
-                rela.setBackgroundResource(WeatherUtils.getBackgroundResource(weather.getWeatherId()));
+                if (ShowWallpaperPrefs.getShowWallpaper()) {
+                    rela.setBackgroundResource(WeatherUtils.getBackgroundResource(weather.getWeatherId()));
+                }
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
