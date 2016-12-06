@@ -17,6 +17,7 @@ public class WeatherPrefs {
     private static final String DAY4 = "DAY4";
     private static final String DAY5 = "DAY5";
     private static final String ID = "ID";
+    private static final String UPDATE = "UPDATE";
 
     public static WeatherDisplay getMainWeather() {
         WeatherDisplay weatherDisplay = new WeatherDisplay();
@@ -138,6 +139,20 @@ public class WeatherPrefs {
         editor.putInt("weatherId", display.getWeatherId());
         editor.putString("tempAva", display.getTempAva());
         editor.putString("timeForecast", display.getTimeForecast());
+        editor.apply();
+    }
+
+    public static int getUpdate() {
+        SharedPreferences preferences = WeatherApplication.getInstance()
+                .getSharedPreferences(UPDATE, Context.MODE_PRIVATE);
+        return preferences.getInt("time", 0);
+    }
+
+    public static void setUpdate(int time) {
+        SharedPreferences.Editor editor = WeatherApplication.getInstance()
+                .getSharedPreferences(UPDATE, Context.MODE_PRIVATE)
+                .edit();
+        editor.putInt("time", time);
         editor.apply();
     }
 }

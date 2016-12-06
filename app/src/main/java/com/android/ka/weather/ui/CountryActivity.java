@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +17,8 @@ import com.android.ka.weather.R;
 import com.android.ka.weather.common.JsonUtil;
 import com.android.ka.weather.common.WeatherUtils;
 import com.android.ka.weather.model.Country;
+import com.android.ka.weather.prefs.ShowWallpaperPrefs;
+import com.android.ka.weather.prefs.WeatherPrefs;
 import com.android.ka.weather.ui.adapter.ListCountryAdapter;
 
 import org.json.JSONArray;
@@ -29,10 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CountryActivity extends AppCompatActivity {
+    RelativeLayout rela;
     private ListView lvCountry;
     private List<Country> countryList;
     private ListCountryAdapter adapter;
-    private RelativeLayout rela;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,6 @@ public class CountryActivity extends AppCompatActivity {
         lvCountry = (ListView) findViewById(R.id.lvCountry);
         rela = (RelativeLayout) findViewById(R.id.rela);
 
-        if (getIntent() != null) {
-            int weatherId = getIntent().getIntExtra("weatherId", 0);
-            rela.setBackgroundResource(WeatherUtils.getBackgroundResource(weatherId));
-        }
         countryList = loadJSONFromAsset();
         adapter = new ListCountryAdapter(this, countryList);
         lvCountry.setAdapter(adapter);
@@ -62,7 +59,12 @@ public class CountryActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        if (ShowWallpaperPrefs.getShowWallpaper()) {
+            rela.setBackgroundResource(WeatherUtils.getBackgroundResource(
+                    WeatherPrefs.getMainWeather().getWeatherId()));
+        } else {
+            rela.setBackgroundResource(R.drawable.clear);
+        }
     }
 
     @Override
@@ -107,7 +109,6 @@ public class CountryActivity extends AppCompatActivity {
         for (int i = 0; i < size - 1; i++) {
             Country country = new Country();
             JSONObject object = JsonUtil.getJSONObject(root, i);
-            Log.e("fuck", i + "");
             country.set_id(JsonUtil.getString(object, "_id", ""));
             String name = JsonUtil.getString(object, "country", "");
             country.setCountry(name);

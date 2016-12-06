@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,7 +20,7 @@ import android.widget.RelativeLayout;
 import com.android.ka.weather.AppConfig;
 import com.android.ka.weather.R;
 import com.android.ka.weather.api.ServiceGenerator;
-import com.android.ka.weather.api.service.WeatherService;
+import com.android.ka.weather.api.service.ApiWeatherService;
 import com.android.ka.weather.common.DateFormatter;
 import com.android.ka.weather.common.Logger;
 import com.android.ka.weather.common.StringUtils;
@@ -33,6 +34,7 @@ import com.android.ka.weather.prefs.UseAppPrefs;
 import com.android.ka.weather.prefs.UsingCurrentLocationPrefs;
 import com.android.ka.weather.prefs.WeatherPrefs;
 import com.android.ka.weather.service.LocationService;
+import com.android.ka.weather.service.WeatherService;
 import com.android.ka.weather.ui.adapter.WeatherAdapter;
 import com.android.ka.weather.ui.fragment.SettingsFragment;
 
@@ -86,6 +88,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new WeatherAdapter(this, list);
         lv.setAdapter(adapter);
         dialog = new ProgressDialog(this, R.style.Theme_MyDialog);
+
+        if (getIntent() != null && getIntent().getAction().equals("android.appwidget.action.APPWIDGET_UPDATE")) {
+            _id = getIntent().getStringExtra("_id");
+            getData();
+        }
         if (UseAppPrefs.checkFirstTime() || (getIntent() != null && getIntent().getAction().
                 equals(SettingsFragment.CURRENT))) {
             dialog.setMessage("Loading weather");
@@ -132,6 +139,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         registerReceiver(locationReceiver, filter);
+        if (!ShowWallpaperPrefs.getShowWallpaper()) {
+            rela.setBackgroundResource(R.drawable.clear);
+        } else {
+            rela.setBackgroundResource(WeatherUtils.getBackgroundResource(
+                    WeatherPrefs.getMainWeather().getWeatherId()));
+        }
+        WeatherService.setServiceAlarm(this, false);
     }
 
     @Override
@@ -144,19 +158,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WeatherPrefs.setDay5(list.get(4));
         WeatherPrefs.setId(_id);
         unregisterReceiver(locationReceiver);
+        WeatherService.setServiceAlarm(this, true);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.ivLocation) {
             Intent intent = new Intent(MainActivity.this, CountryActivity.class);
-            intent.putExtra("weatherId", list.get(0).getWeatherId());
             startActivityForResult(intent, REQUEST_CODE);
         } else if (v.getId() == R.id.ivCalendar) {
             startActivity(new Intent(MainActivity.this, Lunar.class));
         } else if (v.getId() == R.id.ivSettings) {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-            intent.putExtra("weatherId", list.get(0).getWeatherId());
             startActivity(intent);
 
         }
@@ -173,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getData() {
         list.clear();
-        WeatherService service = ServiceGenerator.create(WeatherService.class);
+        ApiWeatherService service = ServiceGenerator.create(ApiWeatherService.class);
         Call<DataResponse> call;
 
         if (UseAppPrefs.checkFirstTime() || UsingCurrentLocationPrefs.getUsingCurrentLocation()) {
@@ -231,5 +244,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Logger.getLogger(MainActivity.class).error(t);
             }
         });
+    }
+
+    public boolean isNetworkAvailableAndConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
+        boolean isNetworkAvailable = cm.getActiveNetworkInfo() != null;
+
+        return isNetworkAvailable && cm.getActiveNetworkInfo().isConnected();
     }
 }

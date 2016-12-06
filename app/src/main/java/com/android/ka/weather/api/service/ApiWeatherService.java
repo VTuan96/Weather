@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  * Created by ka on 26/11/2016.
  */
 
-public interface WeatherService {
+public interface ApiWeatherService {
 
     @GET("forecast")
     Call<DataResponse> getDataByCityId(@Query("appid") String key,

@@ -8,12 +8,13 @@
       android:title="Current Location"/>
   <CheckBoxPreference
       android:key="prefs_show"
-      android:summary="Hien thi hinh nen theo trang thai thoi tiet"
-      android:title="Hien thi hinh nen"/>
+      android:summary="Display wallpaper by status"
+      android:title="Display"/>
   <ListPreference
+      android:defaultValue="0"
       android:entries="@array/time"
       android:entryValues="@array/value_time"
       android:key="prefs_time_update"
-      android:summary="30 minutes"
+      android:summary="%s"
       android:title="Time to update"/>
 </PreferenceScreen>

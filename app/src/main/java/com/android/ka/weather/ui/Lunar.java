@@ -24,7 +24,8 @@ public class Lunar extends AppCompatActivity {
     private static final String DATABASE_NAME = "Folk.sqlite";
     private static final String DATABaSE_TABLE = "FolkTable";
     private final String DIRECTORY_PATH = "/data/data/com.android.ka.weather/databases/";
-    private final String FULL_PATH = DIRECTORY_PATH + DATABASE_NAME;
+    //    private final String DIRECTORY_PATH = getApplicationContext().getFilesDir().getPath();
+    final String FULL_PATH = DIRECTORY_PATH + DATABASE_NAME;
     Calendar c = Calendar.getInstance();
     int DAY_OF_WEEK = c.get(Calendar.DAY_OF_WEEK);
     int DAY = c.get(Calendar.DAY_OF_MONTH);
@@ -34,6 +35,8 @@ public class Lunar extends AppCompatActivity {
     int DAYL = lunar[0];
     int MONTHL = lunar[1];
     int YEARL = lunar[2];
+    SQLiteDatabase database = null;
+    Random random;
     private TextView tvMonthYear;
     private TextView tvDayOfMonth;
     private TextView tvDay;
@@ -44,10 +47,8 @@ public class Lunar extends AppCompatActivity {
     private TextView tvNameOfMonth;
     private TextView tvNameOfDay;
     private TextView tvNameOfYear;
-    private SQLiteDatabase database = null;
     private ArrayList<String> mListFolk = new ArrayList<>();
     private int quoteBefore = 0;
-    private Random random;
 
     public static int INT(double d) {
         return (int) Math.floor(d);
@@ -125,14 +126,13 @@ public class Lunar extends AppCompatActivity {
         C1 = C1 - 0.0074 * Math.sin(dr * (M - Mpr)) + 0.0004 * Math.sin(dr * (2 * F + M));
         C1 = C1 - 0.0004 * Math.sin(dr * (2 * F - M)) - 0.0006 * Math.sin(dr * (2 * F + Mpr));
         C1 = C1 + 0.0010 * Math.sin(dr * (2 * F - Mpr)) + 0.0005 * Math.sin(dr * (2 * Mpr + M));
-        double deltat;
+        double deltaT;
         if (T < -11) {
-            deltat = 0.001 + 0.000839 * T + 0.0002261 * T2 - 0.00000845 * T3 - 0.000000081 * T * T3;
+            deltaT = 0.001 + 0.000839 * T + 0.0002261 * T2 - 0.00000845 * T3 - 0.000000081 * T * T3;
         } else {
-            deltat = -0.000278 + 0.000265 * T + 0.000262 * T2;
+            deltaT = -0.000278 + 0.000265 * T + 0.000262 * T2;
         }
-        ;
-        return Jd1 + C1 - deltat;
+        return Jd1 + C1 - deltaT;
     }
 
     public static double SunLongitude(double jdn) {
@@ -162,7 +162,7 @@ public class Lunar extends AppCompatActivity {
     }
 
     public static int[][] LunarYear(int Y) {
-        int[][] ret = null;
+        int[][] ret;
         int[] month11A = LunarMonth11(Y - 1);
         double jdMonth11A = LocalToJD(month11A[0], month11A[1], month11A[2]);
         int k = (int) Math.floor(0.5 + (jdMonth11A - 2415021.076998695) / 29.530588853);
@@ -248,10 +248,11 @@ public class Lunar extends AppCompatActivity {
             Log.d("Full path", FULL_PATH);
             File fileDir = new File(DIRECTORY_PATH);
             if (!fileDir.exists()) {
-                fileDir.mkdirs();
+                boolean b = fileDir.mkdirs();
                 Log.d("Directory path", DIRECTORY_PATH);
                 try {
                     copyDataToDatabase(getAssets().open(DATABASE_NAME), new FileOutputStream(fileFolk));
+                    loadDataFromDatabase();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -259,9 +260,6 @@ public class Lunar extends AppCompatActivity {
         } else {
             loadDataFromDatabase();
         }
-
-        random = new Random();
-        quoteBefore = random.nextInt(mListFolk.size());
     }
 
     private void loadDataFromDatabase() {
@@ -271,16 +269,29 @@ public class Lunar extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 mListFolk.add(cursor.getString(1));
             }
+            cursor.close();
             Log.d("Load data ", mListFolk.size() + "");
         }
         database.close();
+        random = new Random();
+        quoteBefore = random.nextInt(mListFolk.size());
+        tvDayOfMonth.setText(DAY + "");
+        tvMonthLunar.setText("Tháng " + MONTHL);
+        tvYearLunar.setText(YEARL + "");
+        tvMonthYear.setText("Tháng " + MONTH + " Năm " + YEAR);
+        tvDayLunar.setText(DAYL + "");
+        showCanChiMonth();
+        showCanChiDay();
+        showCanChiYear();
+        showDayOfWeekLunar();
+        showQuote();
     }
 
     private void copyDataToDatabase(InputStream open, OutputStream fileOutputStream) throws IOException {
-        int readline = 0;
+        int readLine;
         byte[] buff = new byte[1024];
-        while ((readline = open.read(buff)) > 0) {
-            fileOutputStream.write(buff, 0, readline);
+        while ((readLine = open.read(buff)) > 0) {
+            fileOutputStream.write(buff, 0, readLine);
         }
         fileOutputStream.flush();
         fileOutputStream.close();
@@ -579,23 +590,4 @@ public class Lunar extends AppCompatActivity {
         tvQuote.setText(quote);
         quoteBefore++;
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        tvDayOfMonth.setText(DAY + "");
-        tvMonthLunar.setText("Tháng " + MONTHL);
-        tvYearLunar.setText(YEARL + "");
-        tvMonthYear.setText("Tháng " + MONTH + " Năm " + YEAR);
-        tvDayLunar.setText(DAYL + "");
-        showCanChiMonth();
-        showCanChiDay();
-        showCanChiYear();
-        showDayOfWeekLunar();
-        showQuote();
-
-    }
-
-
 }
